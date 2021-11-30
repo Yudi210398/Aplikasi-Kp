@@ -1,0 +1,62 @@
+<%- include('../includes/head.ejs') %>
+<!-- tambah css (Option) -->
+</head>
+<body>
+<%- include('../includes/nav.ejs') %>
+<div class="col-md-10 mb-5 p-5 pt-2">
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1 class="h1"> <i class="bi bi-person-plus-fill"></i> Tambah Data Pelanggan </h1>
+    <hr class="bg-secondary">
+<br><br>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <div class="row align-items-center">
+                <div class="col-12">
+                    <p class="judulTambah"> INPUT DATA PELANGGAN </p>
+                </div>
+                <br>
+                <br>
+            </div>
+            <form action="/customer/tambahdata" method="POST">
+                <input
+                type="text" 
+                class="form-control"
+                name="namaCustomer"
+                placeholder="Masukan Nama"
+                id="namaCustomers"
+                required 
+                />   
+                <input
+                type="text" 
+                class="form-control"
+                name="noHP"
+                placeholder="Telp-Hp"
+                id="noHps"
+                min="0"
+                required 
+                />
+                <input
+                type="text" 
+                class="form-control"
+                name="alamatCustomer"
+                placeholder="Alamat"
+                id="alamats"
+                required 
+                />   
+                <br><br>
+                <button class="btn btn-danger" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- ! penutupup div yang bawah jangan diganti atau di hapus punya row nav -->
+</div> 
+
+
+<%- include('../includes/navFixed.ejs') %>
+
+
+<%- include('../includes/end.ejs') %>

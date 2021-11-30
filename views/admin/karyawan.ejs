@@ -1,0 +1,78 @@
+<%- include('../includes/head.ejs') %>
+<!-- tambah css (Option) -->
+</head>
+<body>
+<%- include('../includes/nav.ejs') %>
+    <div class="col-md-10 mb-5 p-5 pt-2">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="h1"> <i class="bi bi-person-circle"></i>   Data Karyawan </h1>
+        <hr class="bg-secondary">
+        <br>
+        <div class="row">
+            <div class="col-8">
+            <p class="lead">Halaman untuk mengatur data karywan</p>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-secondary   " href="#" role="button">Tambah</a>
+                </div>
+        </div>
+<br>
+<br>
+<br>
+        <div class="row text-center">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">NO</th>
+                        <th scope="col">NAMA</th>
+                        <th scope="col">TELEPON / HP</th>
+                        <th scope="col">ALAMAT</th>
+                        <th scope="col">JABATAN</th>
+                        <th scope="col">EDIT</th>
+                        <th scope="col">HAPUS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>SUPERVISOR</td>
+                        <td><button type="button" class="btn btn-warning btn-sm text-center"><i class="bi bi-pencil-square"></i></button></td>
+                        <td><button type="button" class="btn btn-danger btn-sm text-center"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>ADMIN</td>
+                        <td><button type="button" class="btn btn-warning btn-sm text-center"><i class="bi bi-pencil-square"></i></button></td>
+                        <td><button type="button" class="btn btn-danger btn-sm text-center"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Thornton</td>
+                        <td>Messi</td>
+                        <td>@twitter</td>
+                        <td>ADMIN</td>
+                        <td><button type="button" class="btn btn-warning btn-sm text-center"><i class="bi bi-pencil-square"></i></button></td>
+                        <td><button type="button" class="btn btn-danger btn-sm text-center"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                    </tbody>
+                </table>
+        </div>
+
+    </div>
+<!-- ! penutupup div yang bawah jangan diganti atau di hapus punya row nav -->
+</div> 
+
+
+<%- include('../includes/navFixed.ejs') %>
+
+
+<%- include('../includes/end.ejs') %>

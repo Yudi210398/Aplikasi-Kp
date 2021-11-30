@@ -1,0 +1,68 @@
+<%- include('../includes/head.ejs') %>
+<!-- tambah css (Option) -->
+</head>
+<body>
+<%- include('../includes/nav.ejs') %>
+    <div class="col-md-10 mb-5 p-5 pt-2">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1 class="h1"> <i class="bi bi-person-plus-fill"></i>   Data Pelanggan </h1>
+        <hr class="bg-secondary">
+        <br>
+        <div class="row">
+            <div class="col-8">
+            <p class="lead">Halaman untuk mengatur data pelanggan</p>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-secondary   " href="/customer/tambah-data" role="button">Tambah</a>
+                </div>
+        </div>
+<br>
+<br>
+<br>
+
+    <% if(produk.length < 1){ %>
+        <h1 class="h4">Data Tidak ada</h1>
+    <% } else{ %>  
+        <div class="row text-center">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">NO</th>
+                            <th scope="col">NAMA</th>
+                            <th scope="col">TELEPON / HP</th>
+                            <th scope="col">ALAMAT</th>
+                            <th scope="col">UKURAN</th>
+                            <th scope="col">EDIT</th>
+                            <th scope="col">HAPUS</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% produk.forEach(el => { %> 
+                        <tr>
+                            <th scope="row"><%= el.no %> </th>
+                            <td> <%= el.namaCustomer %> </td>
+                            <td> <%= el.noTelp %> </td>
+                            <td> <%= el.alamat %> </td>
+                            <td><button type="button" class="btn btn-primary btn-sm text-center"><i class="bi bi-clipboard-data text-center"></i></button></td>
+                            <td><button type="button" class="btn btn-warning btn-sm text-center"><i class="bi bi-pencil-square"></i></button></td>
+                            <td><button type="button" class="btn btn-danger btn-sm text-center"><i class="bi bi-trash"></i></button></td>
+                        </tr>
+                        <% }) %>
+                        </tbody>
+                    </table>
+        </div>
+    <% } %>
+
+        
+    </div>
+<!-- ! penutupup div yang bawah jangan diganti atau di hapus punya row nav -->
+</div> 
+
+
+<%- include('../includes/navFixed.ejs') %>
+
+
+<%- include('../includes/end.ejs') %>
