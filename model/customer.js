@@ -13,10 +13,10 @@ const Customer = new Schema({
   noTelp: {
     type: String,
     required: true,
+    unique: true,
   },
   alamat: {
     type: String,
-    default: `Masih tinggal diBumi`,
   },
 });
 

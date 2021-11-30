@@ -1,12 +1,11 @@
 import express from "express";
 import routerAdmin from "./router/admin/adminRouter.js";
 import routerCustomer from "./router/customer/customerRouter.js";
-
+import session from "express-session";
 import path from "path";
 import User from "./model/user.js";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-
 const app = express();
 const port = 8000;
 const __dirname = path.resolve();
@@ -17,7 +16,21 @@ app.set("views", "views");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-console.log(path.join(__dirname, "public"));
+
+app.use(
+  session({
+    secret: `rahasia`,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: null },
+  })
+);
+
+app.use((req, res, next) => {
+  res.locals.pesan = req.session.pesan;
+  delete req.session.pesan;
+  next();
+});
 app.use(routerAdmin);
 app.use("/customer", routerCustomer);
 
