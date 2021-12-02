@@ -179,3 +179,7 @@ h1 {
 td {
   text-transform: capitalize;
 }
+
+.hapus-data {
+  margin-top: 30px;
+}

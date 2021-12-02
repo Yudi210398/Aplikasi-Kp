@@ -20,4 +20,9 @@ const Customer = new Schema({
   },
 });
 
+Customer.methods.noUrut = function (data) {
+  this.no = data;
+  return this.save();
+};
+
 export default mongoose.model("Customers", Customer);

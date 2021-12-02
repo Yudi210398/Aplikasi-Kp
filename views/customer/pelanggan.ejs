@@ -12,12 +12,15 @@
         <hr class="bg-secondary">
         <br>
         <div class="row">
-            <div class="col-8">
-            <p class="lead">Halaman untuk mengatur data pelanggan</p>
-            </div>
-            <div class="col-4">
-                <a class="btn btn-secondary   " href="/customer/tambah-data" role="button">Tambah</a>
-                </div>
+            <% if (!hapus) { %>
+                <div class="col-8">
+                    <p class="lead">Halaman untuk mengatur data pelanggan</p>
+                    </div>
+                    <div class="col-4">
+                        <a class="btn btn-secondary   " href="/customer/tambah-data" role="button">Tambah</a>
+                        </div>
+            <% } %>
+
         </div>
 <br>
 <br>
@@ -26,7 +29,7 @@
     <% if(produk.length < 1){ %>
         <h1 class="h4">Data Tidak ada</h1>
     <% } else{ %>  
-        <div class="row text-center">
+        <div class="row text-center justify-content-center">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -34,9 +37,12 @@
                             <th scope="col">NAMA</th>
                             <th scope="col">TELEPON / HP</th>
                             <th scope="col">ALAMAT</th>
-                            <th scope="col">UKURAN</th>
-                            <th scope="col">EDIT</th>
-                            <th scope="col">HAPUS</th>
+                            <% if (!hapus) { %>
+                                <th scope="col">UKURAN</th>
+                                <th scope="col">EDIT</th>
+                                <th scope="col">HAPUS</th>
+                            <% } %>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -46,13 +52,24 @@
                             <td class="namaCustomer"> <%= el.namaCustomer %> </td>
                             <td> <%= el.noTelp %> </td>
                             <td> <%= el.alamat %> </td>
-                            <td><button type="button" class="btn btn-primary btn-sm text-center"><i class="bi bi-clipboard-data text-center"></i></button></td>
-                            <td><button type="button" class="btn btn-warning btn-sm text-center"><i class="bi bi-pencil-square"></i></button></td>
-                            <td><button type="button" class="btn btn-danger btn-sm text-center"><i class="bi bi-trash"></i></button></td>
+                            <% if (!hapus) { %>
+                                <td><button type="button" class="btn btn-primary btn-sm text-center"><i class="bi bi-clipboard-data text-center"></i></button></td>
+                                <td><button type="button" class="btn btn-warning btn-sm text-center"><i class="bi bi-pencil-square"></i></button></td>
+                                <td><a class="btn btn-danger btn-sm text-center" href="/customer/hapus-data/<%= el._id %>?delete=hapus-data"><i class="bi bi-trash"></i></a></td>
+                            <% } %>
+
+                            <% if (hapus) { %>
+                                <form action="/customer/hapus-data-fix" method="POST">
+                                    <input type="hidden" name="id" value="<%= el._id %> ">
+                                    <td><button type="submit" class="btn btn-danger btn-md text-center">Hapus Data</button></td>
+                                </form>
+                            <% } %>
+
+
                         </tr>
                         <% }) %>
                         </tbody>
-                    </table>
+                    </table>    
         </div>
     <% } %>
 
