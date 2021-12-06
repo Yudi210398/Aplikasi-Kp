@@ -11,17 +11,21 @@
     <div class="col-2 bgdark bg-dark pr-3 pt-4"> 
         <br><br><br>
         <ul class="nav flex-column ml-3 mb-5">
-            <li class="nav-item">
+            <li class="nav-item <%= path === "/dashbord" ? "aktive" : "" %>  ">
                 <a class="nav-link text-white" aria-current="page" href="/"> <i class="bi bi-graph-up-arrow"> </i>DASBOARD</a>
             </li>
             <hr class="bg-secondary">
             <br>
-            <li class="nav-item">
+            <li class="nav-item <%= path  === "/pelanggan" ? "aktive" : "" %>  ">
             <a class="nav-link text-white" href="/customer/data-pelanggan"><i class="bi bi-person-plus-fill"></i>DATA PELANGGAN</a>
             </li>
             <hr class="bg-secondary">
             <br>
-            <li class="nav-item">
+            <li class="nav-item  <% if (path === "/karyawan") { %>
+                aktive
+            <% } else if (path === "/kartap") {%> 
+                activered
+            <%} else  {%> gk ada <%}  %> ">
             <a class="nav-link text-white" href="/karyawan"><i class="bi bi-person-circle"></i>DATA KARYAWAN</a>
             </li>
             <hr class="bg-secondary">

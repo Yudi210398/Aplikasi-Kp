@@ -20,7 +20,6 @@
                         <a class="btn btn-secondary   " href="/customer/tambah-data" role="button">Tambah</a>
                         </div>
             <% } %>
-
         </div>
 <br>
 <br>
@@ -54,7 +53,7 @@
                             <td> <%= el.alamat %> </td>
                             <% if (!hapus) { %>
                                 <td><button type="button" class="btn btn-primary btn-sm text-center"><i class="bi bi-clipboard-data text-center"></i></button></td>
-                                <td><button type="button" class="btn btn-warning btn-sm text-center"><i class="bi bi-pencil-square"></i></button></td>
+                                <td><a class="btn btn-warning btn-sm text-center" href="/customer/edit-data/<%= el._id %>?edit=edit-data"><i class="bi bi-pencil-square"></i></a></td>
                                 <td><a class="btn btn-danger btn-sm text-center" href="/customer/hapus-data/<%= el._id %>?delete=hapus-data"><i class="bi bi-trash"></i></a></td>
                             <% } %>
 

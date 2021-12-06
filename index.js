@@ -6,7 +6,6 @@ import path from "path";
 import User from "./model/user.js";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import Customer from "./model/customer.js";
 const app = express();
 const port = 8000;
 const __dirname = path.resolve();

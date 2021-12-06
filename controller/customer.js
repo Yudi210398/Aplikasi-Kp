@@ -4,6 +4,7 @@ export const dataPelanggan = async (req, res, next) => {
     let produk = await Customer.find();
     res.render("customer/pelanggan", {
       docTitle: "Data Pelanggan",
+      path: `/pelanggan`,
       produk,
       hapus: false,
     });
@@ -15,6 +16,9 @@ export const dataPelanggan = async (req, res, next) => {
 export const tambahData = (req, res, next) => {
   res.render("customer/tambahData", {
     docTitle: "Tambah Data",
+    editing: false,
+    staff: false,
+    path: `null`,
   });
 };
 
@@ -41,6 +45,56 @@ export const postTambahData = async (req, res, next) => {
   }
 };
 
+export const editData = async (req, res, next) => {
+  try {
+    const editData = req.query.edit;
+    if (!editData) return res.redirect("/customer/data-pelanggan");
+    let dataEdit = req.params.id;
+
+    let dataP = await Customer.findById(dataEdit);
+    if (!dataP) res.redirect("/customer/data-pelanggan");
+    else {
+      res.render("customer/tambahData", {
+        docTitle: `Edit Data`,
+        editing: true,
+        staff: false,
+        dataP,
+        path: `null`,
+      });
+    }
+  } catch (err) {}
+};
+
+export const postEditData = async (req, res, next) => {
+  try {
+    let id = req.body.idP.trim();
+    let nama = req.body.namaCustomer;
+    let noTelp = req.body.noHP.trim();
+    let alamatCustomer = req.body.alamatCustomer;
+    alamatCustomer === ""
+      ? (alamatCustomer = "Masih tinggal di bumi")
+      : alamatCustomer;
+    let dataP = await Customer.findById(id);
+    let dataAll = await Customer.find();
+    dataP.namaCustomer = nama;
+    dataP.noTelp = noTelp;
+    dataP.alamat = alamatCustomer;
+    let hasil = dataAll.filter(
+      (d) =>
+        d._id.toString() !== dataP._id.toString() && d.noTelp === dataP.noTelp
+    );
+    if (hasil.length > 0) {
+      req.session.pesan = true;
+      res.redirect(`/customer/edit-data/${id}?edit=edit-data`);
+    } else {
+      await dataP.save();
+      res.redirect(`data-pelanggan`);
+    }
+  } catch (err) {
+    console.log(err, `error`);
+  }
+};
+
 export const hapusData = async (req, res, next) => {
   try {
     const dataDelete = req.query.delete;
@@ -54,6 +108,7 @@ export const hapusData = async (req, res, next) => {
         docTitle: "Hapus Data",
         produk,
         hapus: true,
+        path: `null`,
       });
   } catch (err) {
     console.log(`error`, err);
@@ -66,7 +121,7 @@ export const postHapusData = async (req, res, next) => {
     await Customer.findByIdAndRemove(id);
     let data = await Customer.find();
 
-    for (let i = 0; i < data.length; i++) data[i].noUrut(i + 1);
+    for (let i = 0; i < data.length; i++) await data[i].noUrut(i + 1);
 
     res.redirect("/customer/data-pelanggan");
   } catch (err) {

@@ -142,6 +142,18 @@ table {
   background-color: gray;
 }
 
+.aktive {
+  background-color: gray;
+}
+
+.activered {
+  background-color: rgb(124, 170, 212);
+}
+
+.aktivegreen {
+  background-color: rgb(165, 235, 144);
+}
+
 .card-title {
   text-transform: uppercase;
 }
