@@ -8,7 +8,15 @@
         <br>
         <br>
         <br>
-        <h1 class="h1"> <i class="bi bi-person-plus-fill"></i>   Data Pelanggan </h1>
+        <h1 class="h1"> <i class="<% if (hapus) { %>
+            bi bi-trash
+            <% } else  { %>
+                bi bi-person-plus-fill
+            <% } %>"></i>   <% if (hapus) { %>
+            Hapus Data
+        <% } else  { %>
+            Data pelanggan
+           <% } %> </h1>
         <hr class="bg-secondary">
         <br>
         <div class="row">
@@ -58,13 +66,12 @@
                             <% } %>
 
                             <% if (hapus) { %>
-                                <form action="/customer/hapus-data-fix" method="POST">
+                                <form action="<% if (staff) { %>/hapus-data-karyawan
+                                    <% } else {%>/customer/hapus-data-fix<%} %>" method="POST">
                                     <input type="hidden" name="id" value="<%= el._id %> ">
                                     <td><button type="submit" class="btn btn-danger btn-md text-center">Hapus Data</button></td>
                                 </form>
                             <% } %>
-
-
                         </tr>
                         <% }) %>
                         </tbody>
@@ -82,3 +89,5 @@
 
 
 <%- include('../includes/end.ejs') %>
+
+

@@ -1,4 +1,25 @@
 import Customer from "../model/customer.js";
+
+export const tambahdatas = async function (awaits, resq, jabat) {
+  let data = await awaits.find();
+  const no = data.length + 1;
+  const namaCustomer = resq.namaCustomer;
+  const noTelp = resq.noHP.trim();
+  let jabatan;
+
+  if (jabat === true) jabatan = resq.jabatan.trim();
+
+  let alamat = resq.alamatCustomer.trim();
+  alamat === "" ? (alamat = "Masih tinggal di bumi") : alamat;
+  return {
+    no,
+    namaCustomer,
+    noTelp,
+    alamat,
+    jabatan,
+  };
+};
+
 export const dataPelanggan = async (req, res, next) => {
   try {
     let produk = await Customer.find();
@@ -24,18 +45,7 @@ export const tambahData = (req, res, next) => {
 
 export const postTambahData = async (req, res, next) => {
   try {
-    let produkss = await Customer.find();
-    const no = produkss.length + 1;
-    const namaCustomer = req.body.namaCustomer;
-    const noTelp = req.body.noHP.trim();
-    let alamat = req.body.alamatCustomer.trim();
-    alamat === "" ? (alamat = "Masih tinggal di bumi") : alamat;
-    await new Customer({
-      no,
-      namaCustomer,
-      noTelp,
-      alamat,
-    }).save();
+    await new Customer(await tambahdatas(Customer, req.body, false)).save();
 
     setTimeout(() => res.redirect("/customer/data-pelanggan"), 100);
   } catch (err) {
@@ -108,6 +118,7 @@ export const hapusData = async (req, res, next) => {
         docTitle: "Hapus Data",
         produk,
         hapus: true,
+        staff: false,
         path: `null`,
       });
   } catch (err) {

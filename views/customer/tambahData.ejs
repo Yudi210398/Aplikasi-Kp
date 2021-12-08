@@ -25,7 +25,8 @@
                 <% } %>
         
                 <div class="col-12">
-                    <p class="judulTambah"> <% if (editing) { %>EDIT DATA PELANGGAN<% } else { %>INPUT DATA PELANGGAN<% }  %> </p>
+                    <p class="judulTambah"> <% if (editing) { %>EDIT DATA PELANGGAN<% }  else if (staff) {%>  INPUT DATA KARYAWAN
+                    <%} else { %>INPUT DATA PELANGGAN<% }  %> </p>
                 </div>
                 <br>
                 <br>
@@ -61,7 +62,7 @@
                 />
 
                 <% if (staff) { %>
-                    <input type="text" name="jabatan"         class="form-control"   placeholder="Jabatan"
+                    <input type="text" name="jabatan" class="form-control"   placeholder="Jabatan"
                     id="jabatan">
                 <% } %>
 
