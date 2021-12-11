@@ -195,3 +195,18 @@ td {
 .hapus-data {
   margin-top: 30px;
 }
+
+.form-select {
+  display: inline;
+  width: 60%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.keren {
+  padding: 10px 5px;
+}
+select {
+  padding: 10px;
+}

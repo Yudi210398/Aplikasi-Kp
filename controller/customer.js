@@ -23,11 +23,13 @@ export const tambahdatas = async function (awaits, resq, jabat) {
 export const dataPelanggan = async (req, res, next) => {
   try {
     let produk = await Customer.find();
+
     res.render("customer/pelanggan", {
       docTitle: "Data Pelanggan",
       path: `/pelanggan`,
       produk,
       hapus: false,
+      ukuran: false,
     });
   } catch (err) {
     console.log(`error`, err);
@@ -46,12 +48,57 @@ export const tambahData = (req, res, next) => {
 export const postTambahData = async (req, res, next) => {
   try {
     await new Customer(await tambahdatas(Customer, req.body, false)).save();
-
     setTimeout(() => res.redirect("/customer/data-pelanggan"), 100);
   } catch (err) {
     req.session.pesan = true;
     console.log(err, `no telp sudah terdaftar`);
     res.redirect("/customer/tambah-data");
+  }
+};
+
+export const ukuranData = async (req, res, next) => {
+  try {
+    const dataUkuran = req.params.id;
+    let produk = await Customer.findById(dataUkuran);
+    let option = req.body.hasil;
+    if (!produk) res.redirect("/customer/data-pelanggan");
+    else {
+      res.render("customer/templateUkuran", {
+        docTitle: `Ukuran Data`,
+        path: null,
+        produk,
+        ukuran: true,
+        option,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const ukuranAll = async (req, res, next) => {
+  const query = req.query.hasil;
+  let data = req.params.id;
+  let produk = await Customer.findById(data);
+  console.log(produk);
+  if (query === "celana")
+    res.render("customer/ukuranCelana", {
+      docTitle: `Edit Data`,
+      produk,
+      path: `null`,
+    });
+  else if (query === "baju")
+    res.render("customer/ukuranBaju", {
+      docTitle: `Edit Data`,
+      produk,
+      path: `null`,
+    });
+  else if (query === "jas") {
+    res.render("customer/ukuranJas", {
+      docTitle: `Edit Data`,
+      produk,
+      path: `null`,
+    });
   }
 };
 
@@ -72,7 +119,9 @@ export const editData = async (req, res, next) => {
         path: `null`,
       });
     }
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const postEditData = async (req, res, next) => {
@@ -119,7 +168,8 @@ export const hapusData = async (req, res, next) => {
         produk,
         hapus: true,
         staff: false,
-        path: `null`,
+        ukuran: false,
+        path: null,
       });
   } catch (err) {
     console.log(`error`, err);
