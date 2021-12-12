@@ -1,90 +1,84 @@
-<%- include('../includes/head.ejs') %>
-<!-- tambah css (Option) -->
+<%- include('../includes/head.ejs') %> 
+
 </head>
 <body>
-<%- include('../includes/nav.ejs') %>
-<div class="col-md-10 mb-5 p-5 pt-2">
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1 class="h1"><% if (editing) { %><i class="bi bi-pencil-square"></i><% } else { %><i class="bi bi-person-plus-fill"></i><% }  %> <% if (editing) { %>
-        Edit Data
-    <% } else if (staff) {%> 
-        Tambah Karyawan
-    <%} else  {%> Tambah Data <%} %> </h1>
-    <hr class="bg-secondary">
-<br><br>
-    <div class="row justify-content-center">
-        <div class="col-5">
-            <div class="row align-items-center">
-                <% if (pesan) { %>
-                    <div class="alert alert-danger" role="alert">
-                        No telp sudah terdaftar, Masukan No Lain
+    <div class="wrapper">
+    <%- include('../includes/nav.ejs') %>
+    <div class="main_content">
+        <div class="header"><% if (editing) { %><i class="bi bi-pencil-square"></i><% } else { %><i class="bi bi-person-plus-fill"></i><% }  %> <% if (editing) { %>
+            Edit Data
+        <% } else if (staff) {%> 
+            Tambah Karyawan
+        <%} else  {%> Tambah Data <%} %> </div>
+
+        <div class="info">
+            <br><br>
+            <br>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-6">
+                    <% if (pesan) { %>
+                        <div class="alert alert-danger" role="alert">
+                            No telp sudah terdaftar, Masukan No Lain
+                        </div>
+                    <% } %>
+            <br>
+                    <div class="col-12">
+                        <p class="judulTambah"> <% if (editing) { %>EDIT DATA PELANGGAN<% }  else if (staff) {%>  INPUT DATA KARYAWAN
+                        <%} else { %>INPUT DATA PELANGGAN<% }  %> </p>
                     </div>
-                <% } %>
-        
-                <div class="col-12">
-                    <p class="judulTambah"> <% if (editing) { %>EDIT DATA PELANGGAN<% }  else if (staff) {%>  INPUT DATA KARYAWAN
-                    <%} else { %>INPUT DATA PELANGGAN<% }  %> </p>
+
+                    <form action="<% if (editing) { %>/customer/edit-data
+                        <% } else if (staff) {%>/data-tambah-karyawan<%} else  {%>/customer/tambahdata<%} %>" method="POST">
+                        <input
+                        type="text" 
+                        class="form-control"
+                        name="namaCustomer"
+                        placeholder="Masukan Nama"
+                        id="namaCustomers"
+                        value="<% if (editing) { %><%= dataP.namaCustomer %> <% } %>"
+                        required 
+                        />
+                        <br>
+                        <input
+                        type="text" 
+                        class="form-control"
+                        name="noHP"
+                        placeholder="Telp-Hp"
+                        id="noHps"
+                        min="0"
+                        value="<% if (editing) { %><%= dataP.noTelp %> <% } %>"
+                        required 
+                        />
+                        <br>
+
+                        <input
+                        type="text" 
+                        class="form-control"
+                        name="alamatCustomer"
+                        placeholder="Alamat"
+                        id="alamats"
+                        value="<% if (editing) { %><%= dataP.alamat %> <% } %>"
+                        />
+    <br>
+                        <% if (staff) { %>
+                            <input type="text" name="jabatan" class="form-control"   placeholder="Jabatan"
+                            id="jabatan">
+                        <% } %>
+    
+                        <% if (editing) { %>
+                            <input type="hidden" value="<%= dataP._id %>" name="idP">
+                        <% } %>
+                            <br><br>
+                            
+                        <button class="btn btn-success" type="submit"><% if (editing) { %>
+                            Edit Data
+                        <% } else if (staff) {%> 
+                            Tambah Karyawan
+                        <%} else  {%> Tambah Data <%} %></button>
+                    </form>
                 </div>
-                <br>
-                <br>
+                </div>
             </div>
-            <form action="<% if (editing) { %>/customer/edit-data
-                <% } else if (staff) {%>/data-tambah-karyawan<%} else  {%>/customer/tambahdata<%} %>" method="POST">
-                <input
-                type="text" 
-                class="form-control"
-                name="namaCustomer"
-                placeholder="Masukan Nama"
-                id="namaCustomers"
-                value="<% if (editing) { %><%= dataP.namaCustomer %> <% } %>"
-                required 
-                />   
-                <input
-                type="text" 
-                class="form-control"
-                name="noHP"
-                placeholder="Telp-Hp"
-                id="noHps"
-                min="0"
-                value="<% if (editing) { %><%= dataP.noTelp %> <% } %>"
-                required 
-                />
-                <input
-                type="text" 
-                class="form-control"
-                name="alamatCustomer"
-                placeholder="Alamat"
-                id="alamats"
-                value="<% if (editing) { %><%= dataP.alamat %> <% } %>"
-                />
-
-                <% if (staff) { %>
-                    <input type="text" name="jabatan" class="form-control"   placeholder="Jabatan"
-                    id="jabatan">
-                <% } %>
-
-                <% if (editing) { %>
-                    <input type="hidden" value="<%= dataP._id %>" name="idP">
-                <% } %>
-                    <br><br>
-                    
-                <button class="btn btn-success" type="submit"><% if (editing) { %>
-                    Edit Data
-                <% } else if (staff) {%> 
-                    Tambah Karyawan
-                <%} else  {%> Tambah Data <%} %></button>
-            </form>
-        </div>
     </div>
-</div>
-<!-- ! penutupup div yang bawah jangan diganti atau di hapus punya row nav -->
-</div> 
-
-
-<%- include('../includes/navFixed.ejs') %>
-
-
+    </div>
 <%- include('../includes/end.ejs') %>

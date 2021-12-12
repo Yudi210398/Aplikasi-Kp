@@ -36,7 +36,6 @@ app.use(routerAdmin);
 app.use("/customer", routerCustomer);
 
 mongoose.connect(urlDatabase).then((result) => {
-  app.listen(port);
   User.findOne().then((data) => {
     if (!data) {
       const user = new User({
@@ -46,4 +45,5 @@ mongoose.connect(urlDatabase).then((result) => {
       user.save();
     }
   });
+  app.listen(port);
 });

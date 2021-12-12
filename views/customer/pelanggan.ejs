@@ -1,14 +1,11 @@
-<%- include('../includes/head.ejs') %>
-<!-- tambah css (Option) -->
+<%- include('../includes/head.ejs') %> 
+
 </head>
 <body>
-<%- include('../includes/nav.ejs') %>
-    <div class="col-md-10 mb-5 p-5 pt-2">
-        <br>
-        <br>
-        <br>
-        <br>
-        <h1 class="h1"> <i class="<% if (hapus) { %>
+    <div class="wrapper">
+    <%- include('../includes/nav.ejs') %>
+    <div class="main_content">
+        <div class="header"><i class="<% if (hapus) { %>
             bi bi-trash
             <% } else  { %>
                 bi bi-person-plus-fill
@@ -16,23 +13,29 @@
             Hapus Data <%= produk[0].namaCustomer %> 
         <% } else  { %>
             Data pelanggan
-           <% } %> </h1>
-        <hr class="bg-secondary">
-        <br>
+        <% } %> </div>
+
+        <div class="info">
         <div class="row">
             <% if (!hapus) { %>
                 <div class="col-8">
+                    <br><br>
                     <p class="lead">Halaman untuk mengatur data pelanggan</p>
-                    </div>
+                </div>
                     <div class="col-4">
+                        <br><br>
                         <a class="btn btn-secondary   " href="/customer/tambah-data" role="button">Tambah</a>
-                        </div>
+                    </div>
             <% } %>
+            <br>
+            <br>
+            <br>
+            
         </div>
-<br>
-<br>
-<br>
-
+    <br>
+    <br>
+    <br>
+    
     <% if(produk.length < 1){ %>
         <h1 class="h4">Data Tidak ada</h1>
     <% } else{ %>  
@@ -44,12 +47,14 @@
                             <th scope="col">NAMA</th>
                             <th scope="col">TELEPON / HP</th>
                             <th scope="col">ALAMAT</th>
+                            <% if (hapus) { %>
+                                <th scope="col">ACTION</th>
+                            <% } %>
                             <% if (!hapus) { %>
                                 <th scope="col">UKURAN</th>
                                 <th scope="col">EDIT</th>
                                 <th scope="col">HAPUS</th>
                             <% } %>
-
                         </tr>
                         </thead>
                         <tbody>
@@ -61,17 +66,14 @@
                             <td> <%= el.alamat %> </td>
                             <% if (!hapus) { %>
                                 <td><a class="btn btn-primary btn-sm text-center ukuran" href="/customer/ukuran/<%= el._id %>"><i class="bi bi-clipboard-data text-center"></i></a></td>
-
                                 <td><a class="btn btn-warning btn-sm text-center" href="/customer/edit-data/<%= el._id %>?edit=edit-data"><i class="bi bi-pencil-square"></i></a></td>
-
                                 <td><a class="btn btn-danger btn-sm text-center" href="/customer/hapus-data/<%= el._id %>?delete=hapus-data"><i class="bi bi-trash"></i></a></td>
                             <% } %>
-
                             <% if (hapus) { %>
                                 <form action="<% if (staff) { %>/hapus-data-karyawan
                                     <% } else {%>/customer/hapus-data-fix<%} %>" method="POST">
                                     <input type="hidden" name="id" value="<%= el._id %> ">
-                                    <td><button type="submit" class="btn btn-danger btn-md text-center">Hapus Data</button></td>
+                                    <td><button type="submit" class="btn btn-danger btn-md text-center  btn-sm">Hapus Data</button></td>
                                 </form>
                             <% } %>
                         </tr>
@@ -80,17 +82,7 @@
                     </table>    
         </div>
     <% } %>
-
-
-        
+        </div>
     </div>
-<!-- ! penutupup div yang bawah jangan diganti atau di hapus punya row nav -->
-</div> 
-
-
-<%- include('../includes/navFixed.ejs') %>
-
-
+    </div>
 <%- include('../includes/end.ejs') %>
-
-

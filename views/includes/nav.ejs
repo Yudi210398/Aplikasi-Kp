@@ -1,33 +1,23 @@
-
-
-<nav class="navbar navbar-expand-lg navbar-light bg-warning fixed-top"> 
-        <div class="container-fluid">
-        <a class="navbar-brand" href="#">SELAMAT DATANG ADMIN | <strong>LORD TAILOR EXCLUSIVE</strong></a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        </div>
-</nav>
-
-<div class="row g-0 wadah">
-    <div class="col-2 bgdark bg-dark pr-3 pt-4"> 
-        <br><br><br>
-        <ul class="nav flex-column ml-3 mb-5">
+        <div class="sidebar">
+            <h2>hi admin</h2>
+            <ul>
             <li class="nav-item <%= path === "/dashbord" ? "aktive" : "" %>  ">
-                <a class="nav-link text-white" aria-current="page" href="/"> <i class="bi bi-graph-up-arrow"> </i>DASBOARD</a>
+                <a href="/"><i class="fas fa-home"></i>Dashbord</a>
             </li>
-            <hr class="bg-secondary">
-            <br>
-            <li class="nav-item <%= path  === "/pelanggan" ? "aktive" : "" %>  ">
-            <a class="nav-link text-white" href="/customer/data-pelanggan"><i class="bi bi-person-plus-fill"></i>DATA PELANGGAN</a>
+            <li class="nav-item <%= path  === "/pelanggan" ? "aktive" : "" %> ">
+                <a href="/customer/data-pelanggan"><i class="fas fa-user"></i>Data Pelanggan</a>
             </li>
-            <hr class="bg-secondary">
-            <br>
             <li class="nav-item  <% if (path === "/karyawan") { %>
                 aktive
             <% } else if (path === "/kartap") {%> 
                 activered
             <%} else  {%> gk ada <%}  %> ">
-            <a class="nav-link text-white" href="/karyawan"><i class="bi bi-person-circle"></i>DATA KARYAWAN</a>
+                <a href="/karyawan"><i class="fas fa-user-tie"></i>Data Pekerja</a>
             </li>
-            <hr class="bg-secondary">
-        </ul>
-    </div>
+            </ul>
+            <div class="social_media">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
