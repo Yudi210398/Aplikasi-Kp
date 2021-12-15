@@ -83,19 +83,19 @@ export const ukuranAll = async (req, res, next) => {
   console.log(produk);
   if (query === "celana")
     res.render("customer/ukuranCelana", {
-      docTitle: `Edit Data`,
+      docTitle: `Edit Ukuran Celana`,
       produk,
       path: `null`,
     });
   else if (query === "baju")
     res.render("customer/ukuranBaju", {
-      docTitle: `Edit Data`,
+      docTitle: `Edit Ukuran Baju`,
       produk,
       path: `null`,
     });
   else if (query === "jas") {
     res.render("customer/ukuranJas", {
-      docTitle: `Edit Data`,
+      docTitle: `Edit Ukuran Jas`,
       produk,
       path: `null`,
     });
