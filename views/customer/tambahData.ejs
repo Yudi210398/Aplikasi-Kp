@@ -10,7 +10,7 @@
         <% } else if (staff) {%> 
             Tambah Karyawan
         <%} else  {%> Tambah Data <%} %> </div>
-
+        
         <div class="info">
             <br><br>
             <br>
@@ -61,7 +61,9 @@
                         />
     <br>
                         <% if (staff) { %>
-                            <input type="text" name="jabatan" class="form-control"   placeholder="Jabatan"
+                            <input type="text" name="jabatan" class="form-control"
+                            required
+                            placeholder="Jabatan"
                             id="jabatan">
                         <% } %>
     

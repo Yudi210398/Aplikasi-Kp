@@ -5,14 +5,14 @@
     <div class="wrapper">
     <%- include('../includes/nav.ejs') %>
     <div class="main_content">
-        <div class="header">Ukuran <%= produk.namaCustomer %>  <i class="bi bi-clipboard-data text-center"></i></div>
+        <div class="header">Ukuran Baju <%= produk.namaCustomer %>  <i class="bi bi-clipboard-data text-center"></i></div>
 
         <div class="info">
             <br>
-            <form action="/ukuran/baju-fix" method="POST">
+            <form action="/customer/ukuranBaju" method="post">
                 <div class="row justify-content-center ukuranRow">
                     <div class="col-10">
-                    <p class="leads">BAJU</p>
+                    <p class="leads"><%= path %> </p>
                     <div class="row baju-row">
                         <div class="col-1">
                             <p class="lead">1</p>
@@ -20,9 +20,9 @@
                     <div class="col-3">
                         <p class="lead">panjang badan</p>
                     </div>
-                    <div class="col-8">
-                        <input class="form-control ukuranbaju" type="text" name="panjangBadan">
-                    </div>
+                        <div class="col-8">
+                            <input class="form-control ukuranbaju" type="text" name="panjangBadans" value="<%= produk.ukuran.baju[0]?.panjangBadans %> ">
+                        </div>
                 
                     <div class="col-1">
                             <p class="lead">2</p>
@@ -31,10 +31,10 @@
                         <p class="lead">panjang tangan</p>
                     </div>
                     <div class="col-4">
-                        <input class="form-control ukuranbaju" type="text" placeholder="Lengan Panjang" name="lenganPanjang">
+                        <input class="form-control ukuranbaju" type="text" placeholder="Lengan Panjang" name="lenganPanjang" value="<%= produk.ukuran.baju[0]?.lenganPanjang %>">
                     </div>
                     <div class="col-4">
-                        <input class="form-control ukuranbaju" type="text" placeholder="Lengan Pendek" name="lenganPendek">
+                        <input class="form-control ukuranbaju" type="text" placeholder="Lengan Pendek" name="lenganPendek" value="<%= produk.ukuran.baju[0]?.lenganPendek %>">
                     </div>
                 
                     <div class="col-1">
@@ -44,7 +44,7 @@
                     <p class="lead">pundak</p>
                 </div>
                 <div class="col-8">
-                    <input class="form-control ukuranbaju" type="text" name="pundak">
+                    <input class="form-control ukuranbaju" type="text" name="pundak" value="<%= produk.ukuran.baju[0]?.pundak %>">
                 </div>
                 
                 <div class="col-1">
@@ -54,7 +54,7 @@
                     <p class="lead">Lingkar Ketiak</p>
                 </div>
                 <div class="col-8">
-                    <input class="form-control ukuranbaju" type="text" name="lingkarKetiak">
+                    <input class="form-control ukuranbaju" type="text" name="lingkarKetiak" value="<%= produk.ukuran.baju[0]?.lingkarKetiak %>">
                 </div>
                 
             
@@ -65,7 +65,7 @@
                 <p class="lead">Lingkar Ujung Tangan</p>
             </div>
             <div class="col-8">
-                <input class="form-control ukuranbaju" type="text" name="lingkarUjungTangan">
+                <input class="form-control ukuranbaju" type="text" name="lingkarUjungTangan" value="<%= produk.ukuran.baju[0]?.lingkarUjungTangan %>">
             </div>
             
             
@@ -76,7 +76,7 @@
             <p class="lead">Lengan Atas</p>
             </div>
             <div class="col-8">
-            <input class="form-control ukuranbaju" type="text" name="lenganAtas">
+            <input class="form-control ukuranbaju" type="text" name="lenganAtas" value="<%= produk.ukuran.baju[0]?.lenganAtas %>">
             </div>
 
             <div class="col-1">
@@ -86,7 +86,7 @@
             <p class="lead">Lengan Tengah</p>
             </div>
             <div class="col-8">
-            <input class="form-control ukuranbaju" type="text" name="lenganTengah">
+            <input class="form-control ukuranbaju" type="text" name="lenganTengah" value="<%= produk.ukuran.baju[0]?.lenganTengah %>">
             </div>
             
             
@@ -97,7 +97,7 @@
             <p class="lead">Marset</p>
             </div>
             <div class="col-8">
-            <input class="form-control ukuranbaju" type="text" name="marset">
+            <input class="form-control ukuranbaju" type="text" name="marset" value="<%= produk.ukuran.baju[0]?.marset %>">
             </div>
             
             
@@ -108,7 +108,7 @@
             <p class="lead">Leher</p>
             </div>
             <div class="col-8">
-            <input class="form-control ukuranbaju" type="text" name="leher">
+            <input class="form-control ukuranbaju" type="text" name="leher" value="<%= produk.ukuran.baju[0]?.leher %>">
             </div>
             
             
@@ -119,10 +119,10 @@
             <p class="lead">Dada</p>
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Dada Depan" name="dadaDepan">
+                <input class="form-control ukuranbaju" type="text" placeholder="Dada Depan" name="dadaDepan" value="<%= produk.ukuran.baju[0]?.dada[0]?.dadaDepan %>">
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Dada Belakang" name="dadaBelakang">
+                <input class="form-control ukuranbaju" type="text" placeholder="Dada Belakang" name="dadaBelakang" value="<%= produk.ukuran.baju[0]?.dada[0]?.dadaBelakang %>">
             </div>
             
             
@@ -133,10 +133,10 @@
             <p class="lead">Atas</p>
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Atas Depan" name="atasDepan">
+                <input class="form-control ukuranbaju" type="text" placeholder="Atas Depan" name="atasDepan" value="<%= produk.ukuran.baju[0]?.atas[0]?.atasDepan %>">
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Atas Belakang" name="atasBelakang">
+                <input class="form-control ukuranbaju" type="text" placeholder="Atas Belakang" name="atasBelakang" value="<%= produk.ukuran.baju[0]?.atas[0]?.atasBelakang %>">
             </div>
             
             
@@ -147,10 +147,10 @@
             <p class="lead">Perut</p>
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Perut Depan" name="perutDepan">
+                <input class="form-control ukuranbaju" type="text" placeholder="Perut Depan" name="perutDepan" value="<%= produk.ukuran.baju[0]?.perut[0]?.perutDepan %>">
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Perut Belakang" name="perutBelakang">
+                <input class="form-control ukuranbaju" type="text" placeholder="Perut Belakang" name="perutBelakang" value="<%= produk.ukuran.baju[0]?.perut[0]?.perutBelakang %>">
             </div>
             
             <div class="col-1">
@@ -160,10 +160,10 @@
             <p class="lead">Pinggul </p>
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Pinggul  Depan" name="pinggulDepan">
+                <input class="form-control ukuranbaju" type="text" placeholder="Pinggul  Depan" name="pinggulDepan" value="<%= produk.ukuran.baju[0]?.pinggul[0]?.pinggulDepan %>">
             </div>
             <div class="col-4">
-                <input class="form-control ukuranbaju" type="text" placeholder="Pinggul  Belakang" name="pinggulBelakang">
+                <input class="form-control ukuranbaju" type="text" placeholder="Pinggul  Belakang" name="pinggulBelakang" value="<%= produk.ukuran.baju[0]?.pinggul[0]?.pinggulBelakang %>">
             </div>
             
             
@@ -174,7 +174,7 @@
             <p class="lead">Lingkar Dada</p>
             </div>
             <div class="col-8">
-            <input class="form-control ukuranbaju" type="text" name="lingkarDada">
+            <input class="form-control ukuranbaju" type="text" name="lingkarDada" value="<%= produk.ukuran.baju[0]?.lingkarDada %>">
             </div>
             
             
@@ -185,7 +185,7 @@
             <p class="lead">Lingkar Perut</p>
             </div>
             <div class="col-8">
-            <input class="form-control ukuranbaju" type="text" name="lingkarPerut">
+            <input class="form-control ukuranbaju" type="text" name="lingkarPerut" value="<%= produk.ukuran.baju[0]?.lingkarPerut %>">
             </div>
             
             
@@ -196,14 +196,18 @@
             <p class="lead">Lingkar Pinggul</p>
             </div>
             <div class="col-8">
-            <input class="form-control ukuranbaju" type="text" name="lingkarPinggul">
+            <input class="form-control ukuranbaju" type="text" name="lingkarPinggul" value="<%= produk.ukuran.baju[0]?.lingkarPinggul %>">
             </div>
                 <!--  -->
+
+            <input type="hidden" value="<%= produk._id %> " name="idBp" >
+
                 <div class="col-1 m-auto">
                     <br>
                     <button class="btn btn-success" type="submit">Submit</button>
                 </div>
             
+                </div>
                 </div>
                 </div>
             </form>

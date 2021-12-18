@@ -51,7 +51,6 @@ export const postTambahData = async (req, res, next) => {
     setTimeout(() => res.redirect("/customer/data-pelanggan"), 100);
   } catch (err) {
     req.session.pesan = true;
-    console.log(err, `no telp sudah terdaftar`);
     res.redirect("/customer/tambah-data");
   }
 };
@@ -80,20 +79,19 @@ export const ukuranAll = async (req, res, next) => {
   const query = req.query.hasil;
   let data = req.params.id;
   let produk = await Customer.findById(data);
-  console.log(produk);
   if (query === "celana")
     res.render("customer/ukuranCelana", {
       docTitle: `Edit Ukuran Celana`,
       produk,
-      path: `null`,
+      path: `Celana`,
     });
-  else if (query === "baju")
-    res.render("customer/ukuranBaju", {
+  else if (query === "baju") {
+    return res.render("customer/ukuranBaju", {
       docTitle: `Edit Ukuran Baju`,
       produk,
-      path: `null`,
+      path: `Baju`,
     });
-  else if (query === "jas") {
+  } else if (query === "jas") {
     res.render("customer/ukuranJas", {
       docTitle: `Edit Ukuran Jas`,
       produk,
@@ -102,25 +100,29 @@ export const ukuranAll = async (req, res, next) => {
   }
 };
 
-export const editData = async (req, res, next) => {
+export const postUkuranBaju = async (req, res, next) => {
   try {
-    const editData = req.query.edit;
-    if (!editData) return res.redirect("/customer/data-pelanggan");
-    let dataEdit = req.params.id;
-
-    let dataP = await Customer.findById(dataEdit);
-    if (!dataP) res.redirect("/customer/data-pelanggan");
-    else {
-      res.render("customer/tambahData", {
-        docTitle: `Edit Data`,
-        editing: true,
-        staff: false,
-        dataP,
-        path: `null`,
-      });
-    }
+    let dataId = req.body.idBp.trim();
+    let panjangBadan = req.body;
+    const dataCustomer = await Customer.findById(dataId);
+    await dataCustomer.tambahUkurans(panjangBadan);
+    res.redirect(`/customer/ukuran/${dataId}/edit?hasil=baju`);
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const postHapusData = async (req, res, next) => {
+  try {
+    let id = req.body.id.trim();
+    await Customer.findByIdAndRemove(id);
+    let data = await Customer.find();
+
+    for (let i = 0; i < data.length; i++) await data[i].noUrut(i + 1);
+
+    res.redirect("/customer/data-pelanggan");
+  } catch (err) {
+    console.log(`error`, err);
   }
 };
 
@@ -154,6 +156,28 @@ export const postEditData = async (req, res, next) => {
   }
 };
 
+export const editData = async (req, res, next) => {
+  try {
+    const editData = req.query.edit;
+    if (!editData) return res.redirect("/customer/data-pelanggan");
+    let dataEdit = req.params.id;
+
+    let dataP = await Customer.findById(dataEdit);
+    if (!dataP) res.redirect("/customer/data-pelanggan");
+    else {
+      res.render("customer/tambahData", {
+        docTitle: `Edit Data`,
+        editing: true,
+        staff: false,
+        dataP,
+        path: `null`,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const hapusData = async (req, res, next) => {
   try {
     const dataDelete = req.query.delete;
@@ -171,20 +195,6 @@ export const hapusData = async (req, res, next) => {
         ukuran: false,
         path: null,
       });
-  } catch (err) {
-    console.log(`error`, err);
-  }
-};
-
-export const postHapusData = async (req, res, next) => {
-  try {
-    let id = req.body.id.trim();
-    await Customer.findByIdAndRemove(id);
-    let data = await Customer.find();
-
-    for (let i = 0; i < data.length; i++) await data[i].noUrut(i + 1);
-
-    res.redirect("/customer/data-pelanggan");
   } catch (err) {
     console.log(`error`, err);
   }
