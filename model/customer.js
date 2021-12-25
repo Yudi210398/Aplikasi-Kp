@@ -5,6 +5,17 @@ const Schema = mongoose.Schema;
 //   dadaBelakang: data.dadaBelakang,
 // });
 
+let fungsiSaveUkuran = function (data) {
+  let datas = {
+    baju: data.ukuran.baju,
+    celana: data.ukuran.celana,
+    jas: data.ukuran.jas,
+  };
+  data.ukuran = datas;
+
+  return data.save();
+};
+
 const Customer = new Schema({
   no: {
     type: Number,
@@ -43,6 +54,31 @@ const Customer = new Schema({
         lingkarDada: String,
         lingkarPerut: String,
         lingkarPinggul: String,
+      },
+    ],
+
+    celana: [
+      {
+        pinggang: String,
+        panjang: String,
+        paha: String,
+        lutut: String,
+        kaki: String,
+        kil: String,
+        pinggulCelana: String,
+      },
+    ],
+    jas: [
+      {
+        panjangbadan: [{ panjangDepan: String, panjangBelakang: String }],
+        pundak: String,
+        lebarBahu: String,
+        panjangTangan: String,
+        badan: [{ badanDepan: String, badanBelakang: String }],
+        dada: String,
+        pinggang: String,
+        pinggul: String,
+        leher: String,
       },
     ],
   },
@@ -96,18 +132,49 @@ Customer.methods.tambahUkurans = function (data) {
     pinggulBelakang: data.pinggulBelakang,
   });
 
-  const datas = {
-    baju: this.ukuran.baju,
-  };
-  this.ukuran = datas;
+  fungsiSaveUkuran(this);
+};
 
-  return this.save();
+Customer.methods.ukuransjas = function (data) {
+  if (this.ukuran.jas.length > 0) this.ukuran.jas.shift();
 
-  // const datas = {
-  //   baju: hasil,
-  // };
-  // this.ukuran = datas;
-  // return this.save();
+  this.ukuran.jas.push({
+    pundak: data.pundak.trim(),
+    lebarBahu: data.lebarBahu.trim(),
+    panjangTangan: data.panjangTangan.trim(),
+    dada: data.dada.trim(),
+    pinggang: data.pinggang.trim(),
+    pinggul: data.pinggul?.trim(),
+    leher: data.leher?.trim(),
+  });
+
+  this.ukuran.jas[0]?.panjangbadan.push({
+    panjangDepan: data.panjangDepan,
+    panjangBelakang: data.panjangBelakang,
+  });
+
+  this.ukuran.jas[0]?.badan.push({
+    badanDepan: data.badanDepan,
+    badanBelakang: data.badanBelakang,
+  });
+
+  fungsiSaveUkuran(this);
+};
+
+Customer.methods.ukuransCelana = function (data) {
+  if (this.ukuran.celana.length > 0) this.ukuran.celana.shift();
+
+  this.ukuran.celana.push({
+    pinggang: data.pinggang.trim(),
+    panjang: data.panjang.trim(),
+    paha: data.paha.trim(),
+    lutut: data.lutut.trim(),
+    kaki: data.kaki.trim(),
+    kil: data.kil.trim(),
+    pinggulCelana: data.pinggulCelana.trim(),
+  });
+
+  fungsiSaveUkuran(this);
 };
 
 export default mongoose.model("Customers", Customer);

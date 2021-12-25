@@ -125,3 +125,15 @@ td {
 .lead {
   text-transform: capitalize;
 }
+
+.btn-sms {
+  margin-bottom: 60px;
+}
+
+.judulTambah {
+  text-transform: uppercase;
+}
+
+.autokanan {
+  margin-left: 50px;
+}

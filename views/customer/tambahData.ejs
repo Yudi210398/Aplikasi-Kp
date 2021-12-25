@@ -9,6 +9,8 @@
             Edit Data
         <% } else if (staff) {%> 
             Tambah Karyawan
+        <%}  else if (editStaff) {%> 
+            Edit Data Karyawan
         <%} else  {%> Tambah Data <%} %> </div>
         
         <div class="info">
@@ -23,21 +25,24 @@
                     <% } %>
             <br>
                     <div class="col-12">
-                        <p class="judulTambah"> <% if (editing) { %>EDIT DATA PELANGGAN<% }  else if (staff) {%>  INPUT DATA KARYAWAN
+                        <p class="judulTambah"> <% if (editing) { %>EDIT DATA PELANGGAN <%= dataP.namaCustomer %> <% }  else if (editStaff) {%>  edit Data Karyawan  <%= data.namaCustomer %> 
+                            <%} else if (staff) {%>  INPUT DATA KARYAWAN
                         <%} else { %>INPUT DATA PELANGGAN<% }  %> </p>
                     </div>
 
                     <form action="<% if (editing) { %>/customer/edit-data
-                        <% } else if (staff) {%>/data-tambah-karyawan<%} else  {%>/customer/tambahdata<%} %>" method="POST">
+                        <% } else if (editStaff) {%> 
+                            /data-edit-karyawan
+                        <%} else if (staff) {%>/data-tambah-karyawan<%} else {%>/customer/tambahdata<%} %>" method="POST">
                         <input
                         type="text" 
                         class="form-control"
                         name="namaCustomer"
                         placeholder="Masukan Nama"
                         id="namaCustomers"
-                        value="<% if (editing) { %><%= dataP.namaCustomer %> <% } %>"
+                        value="<% if (editing) { %><%= dataP.namaCustomer %> <% } else if (editStaff) {%> <%= data.namaCustomer %> <%} %>"
                         required 
-                        />
+                        /> 
                         <br>
                         <input
                         type="text" 
@@ -46,7 +51,7 @@
                         placeholder="Telp-Hp"
                         id="noHps"
                         min="0"
-                        value="<% if (editing) { %><%= dataP.noTelp %> <% } %>"
+                        value="<% if (editing) { %><%= dataP.noTelp %> <% } else if (editStaff) {%> <%= data.noTelp %> <%} %>"
                         required 
                         />
                         <br>
@@ -57,12 +62,14 @@
                         name="alamatCustomer"
                         placeholder="Alamat"
                         id="alamats"
-                        value="<% if (editing) { %><%= dataP.alamat %> <% } %>"
+                        value="<% if (editing) { %><%= dataP.alamat %> <% } else if (editStaff) {%> <%= data.alamat %> <%}  %>"
                         />
     <br>
                         <% if (staff) { %>
                             <input type="text" name="jabatan" class="form-control"
                             required
+                            value="<% if (editStaff) { %> <%= data.jabatan %> 
+                            <% } %>"
                             placeholder="Jabatan"
                             id="jabatan">
                         <% } %>
@@ -70,11 +77,17 @@
                         <% if (editing) { %>
                             <input type="hidden" value="<%= dataP._id %>" name="idP">
                         <% } %>
+
+                        <% if (editStaff) { %>
+                            <input type="hidden" value="<%= data._id %>" name="idK">
+                        <% } %>
                             <br><br>
                             
                         <button class="btn btn-success" type="submit"><% if (editing) { %>
                             Edit Data
-                        <% } else if (staff) {%> 
+                        <% } else if (editStaff) {%> 
+                            Edit Karyawan
+                        <%} else if (staff) {%> 
                             Tambah Karyawan
                         <%} else  {%> Tambah Data <%} %></button>
                     </form>

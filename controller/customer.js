@@ -42,6 +42,7 @@ export const tambahData = (req, res, next) => {
     editing: false,
     staff: false,
     path: `null`,
+    editStaff: false,
   });
 };
 
@@ -95,7 +96,7 @@ export const ukuranAll = async (req, res, next) => {
     res.render("customer/ukuranJas", {
       docTitle: `Edit Ukuran Jas`,
       produk,
-      path: `null`,
+      path: `Jas`,
     });
   }
 };
@@ -106,7 +107,45 @@ export const postUkuranBaju = async (req, res, next) => {
     let panjangBadan = req.body;
     const dataCustomer = await Customer.findById(dataId);
     await dataCustomer.tambahUkurans(panjangBadan);
-    res.redirect(`/customer/ukuran/${dataId}/edit?hasil=baju`);
+
+    setTimeout(
+      async () =>
+        await res.redirect(`/customer/ukuran/${dataId}/edit?hasil=baju`),
+      100
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postUkuranCelana = async (req, res, next) => {
+  try {
+    let dataId = req.body.idBp.trim();
+    let panjangBadan = req.body;
+    const dataCustomer = await Customer.findById(dataId);
+    let data1 = await dataCustomer.ukuransCelana(panjangBadan);
+
+    setTimeout(
+      async () =>
+        await res.redirect(`/customer/ukuran/${dataId}/edit?hasil=celana`),
+      100
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const postUkuranjas = async (req, res, next) => {
+  try {
+    let dataId = req.body.idBp.trim();
+    let panjangBadan = req.body;
+    const dataCustomer = await Customer.findById(dataId);
+    await dataCustomer.ukuransjas(panjangBadan);
+    setTimeout(
+      async () =>
+        await res.redirect(`/customer/ukuran/${dataId}/edit?hasil=jas`),
+      100
+    );
   } catch (err) {
     console.log(err);
   }
@@ -149,7 +188,7 @@ export const postEditData = async (req, res, next) => {
       res.redirect(`/customer/edit-data/${id}?edit=edit-data`);
     } else {
       await dataP.save();
-      res.redirect(`data-pelanggan`);
+      res.redirect(`/customer/data-pelanggan`);
     }
   } catch (err) {
     console.log(err, `error`);
@@ -171,6 +210,7 @@ export const editData = async (req, res, next) => {
         staff: false,
         dataP,
         path: `null`,
+        editStaff: false,
       });
     }
   } catch (err) {
@@ -195,6 +235,20 @@ export const hapusData = async (req, res, next) => {
         ukuran: false,
         path: null,
       });
+  } catch (err) {
+    console.log(`error`, err);
+  }
+};
+
+export const postCariData = async (req, res, next) => {
+  try {
+    let data = req.body.cariData.trim();
+    let dataHasil = await Customer.find({ $text: { $search: `"${data}"` } });
+    res.render("customer/cari-data", {
+      docTitle: "Pencarian",
+      produk: dataHasil,
+      path: null,
+    });
   } catch (err) {
     console.log(`error`, err);
   }

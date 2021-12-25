@@ -13,7 +13,6 @@ const urlDatabase = `mongodb+srv://runatyudi:kawasanrokok1998@cluster0.oaqmd.mon
 
 app.set("view engine", "ejs");
 app.set("views", "views");
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
