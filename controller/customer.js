@@ -41,6 +41,7 @@ export const tambahdatas = async function (awaits, resq, jabat) {
 
   let alamat = resq.alamatCustomer.trim();
   alamat === "" ? (alamat = "Masih tinggal di bumi") : alamat;
+
   return {
     no,
     namaCustomer,
@@ -53,7 +54,7 @@ export const tambahdatas = async function (awaits, resq, jabat) {
 export const dataPelanggan = async (req, res, next) => {
   try {
     let produk = await Customer.find();
-
+    produk.reverse();
     res.render("customer/pelanggan", {
       docTitle: "Data Pelanggan",
       path: `/pelanggan`,
@@ -111,6 +112,9 @@ export const postTambahData = async (req, res, next) => {
     //   return await validasiCheck(error, res, req.body, false);
 
     await new Customer(await tambahdatas(Customer, req.body, false)).save();
+    let dataUser = await Customer.find();
+    dataUser.reverse();
+    for (let i = 0; i < dataUser.length; i++) await dataUser[i].noUrut(i + 1);
     setTimeout(() => res.redirect("/customer/data-pelanggan"), 100);
   } catch (err) {
     res.redirect("/customer/tambah-data");
@@ -221,7 +225,7 @@ export const postHapusData = async (req, res, next) => {
     let id = req.body.id.trim();
     await Customer.findByIdAndRemove(id);
     let data = await Customer.find();
-
+    data.reverse();
     for (let i = 0; i < data.length; i++) await data[i].noUrut(i + 1);
 
     res.redirect("/customer/data-pelanggan");
