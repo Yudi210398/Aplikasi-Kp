@@ -33,6 +33,11 @@ body {
   margin-bottom: 30px;
 }
 
+.center {
+  text-align: center;
+  margin-top: 50px;
+}
+
 .wrapper .sidebar ul li {
   padding: 15px;
   margin-left: -35px;
@@ -46,6 +51,18 @@ body {
   display: block;
 }
 
+.wrapper .sidebar ul li button {
+  color: #bdb8d7;
+  display: block;
+  border: none;
+  background-color: transparent;
+  width: 100px;
+  margin-left: 20px;
+  font-family: "Josefin Sans";
+  font-size: medium;
+  font-weight: lighter;
+}
+
 .wrapper .sidebar ul li a .fas {
   width: 25px;
 }
@@ -54,8 +71,20 @@ body {
   background-color: #594f8d;
 }
 
+button.fas:hover {
+  background-color: #594f8d;
+}
+
 .wrapper .sidebar ul li:hover a {
   color: #fff;
+}
+.wrapper .sidebar ul li:hover button {
+  color: #fff;
+}
+.bi-box-arrow-left::before {
+  content: "\f1c2";
+  margin-left: -68px;
+  margin-right: 10px;
 }
 
 .wrapper .sidebar .social_media {

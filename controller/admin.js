@@ -1,16 +1,17 @@
 import Customer from "../model/customer.js";
 import Karyawan from "../model/karyawan.js";
 import * as controller from "../controller/customer.js";
+
 export const mainData = async (req, res, next) => {
   try {
     let data = await Customer.find();
     let data2 = await Karyawan.find();
-
     res.render("admin/dasboard", {
       docTitle: `Home Page`,
       data,
       data2,
       path: `/dashbord`,
+      login: req.session.login,
     });
   } catch (err) {
     console.log(err, `Error`);
@@ -23,6 +24,7 @@ export const dataKaryawan = async (req, res, next) => {
     docTitle: "Data Karyawan",
     path: `/karyawan`,
     produk: data,
+    login: req.session.login,
   });
 };
 
@@ -33,6 +35,9 @@ export const tambahDataKaryawan = (req, res, next) => {
     editing: false,
     staff: true,
     editStaff: false,
+    errors: false,
+    data: false,
+    login: req.session.login,
   });
 };
 
@@ -64,6 +69,7 @@ export const hapusDataKaryawan = async (req, res, next) => {
         hapus: true,
         staff: true,
         path: `null`,
+        login: req.session.login,
       });
   } catch (err) {
     console.log(`error`, err);
@@ -99,6 +105,8 @@ export const editKaryawan = async (req, res, next) => {
         editStaff: true,
         data,
         path: `null`,
+        errors: false,
+        login: req.session.login,
       });
     }
   } catch (error) {

@@ -1,5 +1,35 @@
 import Customer from "../model/customer.js";
+import { validationResult } from "express-validator";
+/* 
 
+const validasiCheck = async function (data, res, reqs, edit, dataquery) {
+  dataquery = req;
+
+  let dataP = await Customer.findById(dataEdit);
+  try {
+    const namaCustomer = reqs.namaCustomer;
+    const noHP = reqs.noHP;
+    const alamatCustomer = reqs.alamatCustomer;
+    return await res.status(422).render(`customer/tambahData`, {
+      docTitle: "Tambah Data",
+      editing: edit,
+      staff: false,
+      path: `null`,
+      editStaff: false,
+      errors: data.array()[0].msg,
+      dataP,
+      data: {
+        namaCustomer,
+        noHP,
+        alamatCustomer,
+      },
+      login: req.session.login,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+*/
 export const tambahdatas = async function (awaits, resq, jabat) {
   let data = await awaits.find();
   const no = data.length + 1;
@@ -30,6 +60,7 @@ export const dataPelanggan = async (req, res, next) => {
       produk,
       hapus: false,
       ukuran: false,
+      login: req.session.login,
     });
   } catch (err) {
     console.log(`error`, err);
@@ -43,15 +74,45 @@ export const tambahData = (req, res, next) => {
     staff: false,
     path: `null`,
     editStaff: false,
+    errors: false,
+    data: {
+      namaCustomer: "",
+      noHP: "",
+      alamatCustomer: "",
+    },
+    login: req.session.login,
   });
 };
 
 export const postTambahData = async (req, res, next) => {
   try {
+    const namaCustomer = req.body.namaCustomer;
+    const noHP = req.body.noHP;
+    const alamatCustomer = req.body.alamatCustomer;
+    const error = validationResult(req);
+    if (!error.isEmpty())
+      return res.status(422).render(`customer/tambahData`, {
+        docTitle: "Tambah Data",
+        editing: false,
+        staff: false,
+        path: `null`,
+        editStaff: false,
+        errors: error.array()[0].msg,
+        data: {
+          namaCustomer,
+          noHP,
+          alamatCustomer,
+        },
+        login: req.session.login,
+      });
+
+    // const error = await validationResult(req);
+    // if (!error.isEmpty())
+    //   return await validasiCheck(error, res, req.body, false);
+
     await new Customer(await tambahdatas(Customer, req.body, false)).save();
     setTimeout(() => res.redirect("/customer/data-pelanggan"), 100);
   } catch (err) {
-    req.session.pesan = true;
     res.redirect("/customer/tambah-data");
   }
 };
@@ -69,6 +130,7 @@ export const ukuranData = async (req, res, next) => {
         produk,
         ukuran: true,
         option,
+        login: req.session.login,
       });
     }
   } catch (err) {
@@ -85,18 +147,21 @@ export const ukuranAll = async (req, res, next) => {
       docTitle: `Edit Ukuran Celana`,
       produk,
       path: `Celana`,
+      login: req.session.login,
     });
   else if (query === "baju") {
     return res.render("customer/ukuranBaju", {
       docTitle: `Edit Ukuran Baju`,
       produk,
       path: `Baju`,
+      login: req.session.login,
     });
   } else if (query === "jas") {
     res.render("customer/ukuranJas", {
       docTitle: `Edit Ukuran Jas`,
       produk,
       path: `Jas`,
+      login: req.session.login,
     });
   }
 };
@@ -167,6 +232,10 @@ export const postHapusData = async (req, res, next) => {
 
 export const postEditData = async (req, res, next) => {
   try {
+    // const error = validationResult(req);
+    // if (!error.isEmpty())
+    //   return await validasiCheck(error, res, req.body, true);
+
     let id = req.body.idP.trim();
     let nama = req.body.namaCustomer;
     let noTelp = req.body.noHP.trim();
@@ -174,7 +243,22 @@ export const postEditData = async (req, res, next) => {
     alamatCustomer === ""
       ? (alamatCustomer = "Masih tinggal di bumi")
       : alamatCustomer;
+
     let dataP = await Customer.findById(id);
+    const error = validationResult(req);
+    if (!error.isEmpty())
+      return res.status(422).render("customer/tambahData", {
+        docTitle: `Edit Data`,
+        editing: true,
+        staff: false,
+        dataP,
+        path: `null`,
+        editStaff: false,
+        errors: false,
+        errors: error.array()[0].msg,
+        login: req.session.login,
+      });
+
     let dataAll = await Customer.find();
     dataP.namaCustomer = nama;
     dataP.noTelp = noTelp;
@@ -211,6 +295,8 @@ export const editData = async (req, res, next) => {
         dataP,
         path: `null`,
         editStaff: false,
+        errors: false,
+        login: req.session.login,
       });
     }
   } catch (err) {
@@ -234,6 +320,7 @@ export const hapusData = async (req, res, next) => {
         staff: false,
         ukuran: false,
         path: null,
+        login: req.session.login,
       });
   } catch (err) {
     console.log(`error`, err);
@@ -248,6 +335,7 @@ export const postCariData = async (req, res, next) => {
       docTitle: "Pencarian",
       produk: dataHasil,
       path: null,
+      login: req.session.login,
     });
   } catch (err) {
     console.log(`error`, err);
